@@ -2,8 +2,9 @@ const express = require("express")
 const router = express.Router()
 const User = require("../models/User")
 const bcrypt = require("bcryptjs")
+const middleware = require("../middleware/middleware")
 
-router.get("/users",(req,res)=>{
+router.get("/users",middleware,(req,res)=>{
 
     User.findAll().then(users =>{
 
@@ -16,7 +17,7 @@ router.get("/users",(req,res)=>{
     
 })
 
-router.post("/user",(req,res)=>{
+router.post("/register",(req,res)=>{
     const {name,email,password,phone} = req.body
 
     User.findOne({
@@ -34,11 +35,13 @@ router.post("/user",(req,res)=>{
                 phone: phone
     
             }).then(()=>{
+                res.status(200)
                 res.send({message: "Success!",status: 200})
             })
 
 
         }else{
+            res.status(400)
             res.send({error : "Email already exist!"})
         }
     }).catch(err => {

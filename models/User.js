@@ -14,9 +14,25 @@ User = connection.define('users',{
         type: Sequelize.STRING,
         allowNull: false
     },
-    phone: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+    description: {
+        type: Sequelize.STRING,
+        allowNull: true
+    },
+    followers:{
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    following:{
+      type: Sequelize.INTEGER,
+      allowNull: true
+    },
+    photo: {
+      type: Sequelize.STRING,
+      allowNull: true
+    },
+    sexo:{
+      type: Sequelize.STRING,
+      allowNull: false
     }
 })
 //User.sync({force:false}).then(()=>{})

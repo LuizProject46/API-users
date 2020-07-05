@@ -1,10 +1,11 @@
 const express = require("express")
-const router = express.Router()
+
 const User = require("../models/User")
 const bcrypt = require("bcryptjs")
-const middleware = require("../middleware/middleware")
 
-router.get("/users",middleware,(req,res)=>{
+
+module.exports = {
+ users(req,res){
 
     User.findAll().then(users =>{
 
@@ -15,10 +16,10 @@ router.get("/users",middleware,(req,res)=>{
         res.send({error: err})
     })    
     
-})
+},
 
-router.post("/register",(req,res)=>{
-    const {name,email,password,phone} = req.body
+register(req,res){
+    const {name,email,password,description,followers,following,photo,sexo} = req.body
 
     User.findOne({
         where :{
@@ -32,7 +33,11 @@ router.post("/register",(req,res)=>{
                 name: name,
                 email: email,
                 password: hash,
-                phone: phone
+                description: description,
+                followers: followers,
+                following: following,
+                photo: photo,
+                sexo: sexo
     
             }).then(()=>{
                 res.status(200)
@@ -49,8 +54,10 @@ router.post("/register",(req,res)=>{
     })
 
     
-})
+}
 
-module.exports = router
+}
+
+
 
 

@@ -20,7 +20,7 @@ module.exports = {
 
 register(req,res){
     const {name,email,password,description,followers,following,photo,sexo} = req.body
-
+    
     User.findOne({
         where :{
             email: email

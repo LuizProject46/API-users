@@ -13,7 +13,7 @@ connDB.authenticate().then(()=>{
     console.log(err)
 })
 
-
+app.set('view engine','ejs')
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(router)
@@ -22,6 +22,6 @@ app.get("/",(req,res)=>{
 
     res.send({ message : "Bem vindo à API "})
 })
-app.listen(3001, ()=>{
+app.listen(3333, ()=>{
     console.log("Server running in port 3001")
 })

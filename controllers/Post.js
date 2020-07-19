@@ -1,4 +1,7 @@
 const Post = require("../models/Posts")
+const modelUser = require('../models/User')
+const User = require("./User")
+const { users } = require("./User")
 
 
 module.exports = {
@@ -30,21 +33,24 @@ module.exports = {
   },
 
   async posts(req,res){
-    try{
-     const data = await Post.findAll()
-      if(data != undefined && data){
-        res.status(200)
-        res.send({data: data})
-      }else{
-        res.status(400)
-      res.send({error: "Error!"})
-      }
+     try{
+      const data = await Post.findAll()
+       if(data != undefined && data){
+         res.status(200)
+         res.send({data: data})
+       }else{
+         res.status(400)
+       res.send({error: "Error!"})
+       }
+     
+     }catch(err){
+       
+       res.status(500)
+       res.send({error: "Error!"})
+     }
+     
     
-    }catch(err){
-      
-      res.status(500)
-      res.send({error: "Error!"})
-    }
+    
   },
   async likes(req,res){
     
@@ -68,7 +74,7 @@ module.exports = {
     
     const {id } = req.params
    
-   const result = await Post.decrement({likes: 1}, {where:{id : id}})
+   const result = await Post.increment({deslikes: 1}, {where:{id : id}})
     if(result){
       res.status(200)
       res.send({message: "Desliked with success!"})

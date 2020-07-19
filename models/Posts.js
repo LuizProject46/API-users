@@ -1,8 +1,9 @@
 const Sequelize = require("sequelize")
 const connection = require("../database/db")
-const User = require("../models/User")
+const User = require("./User")
 
-Post = connection.define("posts",{
+
+const Post = connection.define("posts",{
 id_user:{
   type: Sequelize.INTEGER,
   allowNull: false
@@ -29,6 +30,9 @@ deslikes:{
 
 })
 
-//Post.sync({force:false}).then(()=>{})
-//User.hasMany(Post)
+// Post.sync({force:true})
+
+
+//User.belongsTo(Post)
+
 module.exports = Post

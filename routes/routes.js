@@ -12,10 +12,10 @@ router.post('/register',userController.register)
 router.post('/authenticate',authController.auth)
 
 //==============================================
-//POST
+//POSTS
 //==============================================
 router.post('/create',middleware,postsController.create)
-router.get("/posts",middleware,postsController.posts)
+router.get("/posts",postsController.posts)
 router.post("/like/:id",middleware,postsController.likes)
 router.post("/deslike/:id",middleware,postsController.deslike)
 

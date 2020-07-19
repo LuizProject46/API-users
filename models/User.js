@@ -1,7 +1,8 @@
 const Sequelize = require("sequelize")
 const connection = require("../database/db")
+const Post = require('./Posts')
 
-User = connection.define('users',{
+const User = connection.define('users',{
     name : {
         type: Sequelize.STRING,
         allowNull: false
@@ -35,5 +36,8 @@ User = connection.define('users',{
       allowNull: false
     }
 })
-//User.sync({force:false}).then(()=>{})
+// User.sync({force:true})
+// User.hasMany(Post)
+// Post.belongsTo(User)
+
 module.exports = User

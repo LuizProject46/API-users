@@ -8,7 +8,9 @@ const middleware = require("../middleware/middleware")
 //USER
 //===================================================
 router.get('/users',middleware, userController.users)
+router.get('/user/:id',middleware, userController.user)
 router.post('/register',userController.register)
+router.post('/update/:id',middleware,userController.update)
 router.post('/authenticate',authController.auth)
 
 //==============================================

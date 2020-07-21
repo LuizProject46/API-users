@@ -46,24 +46,7 @@ ejs.renderFile("email/template.ejs",{name: name,img: 'email/img/logo.png'},funct
   }
 })
 
-  //  transporter.sendMail({
-  //   from: '"SocialSociety " <louisgustavooliveira46@gmail.com>', // sender address
-  //   to: to , // list of receivers
-  //   subject: "Cadastro no SocialSociety", // Subject line
-  //   text: "Conta criada com sucesso", // plain text body
-  //   attachments: [
-  //     {filename: 'logo.png', path: 'email/img/logo.png',cid: 'logo',}
-  //   ],
-    
-  //   html: {
-  //     path:'email/template.html'
-  //   }, // html body
-  // }).then(res =>{
-  //   console.log(res)
-  // }).catch(err=>{
-  //   console.log(err)
-  // })
-
+  
 }
 
 
@@ -80,7 +63,57 @@ module.exports = {
     })    
     
 },
+user (req,res){
+    var id = req.params.id
+    if(id != undefined){
+      User.findOne({
+        where: {
+          id: id 
+  
+        }
+      }).then(data =>{
+          if(data){
+            res.send({data: data})
+          }
+      }).catch(err =>{
 
+        res.send({error: "error!"})
+      })
+    }
+    
+},
+update (req,res){
+  const id = req.params.id
+  const {name,description,sexo,email} = req.body
+  
+  if(id != undefined ){
+    User.update({
+      name: name,
+      email:email,
+      description: description ,
+      sexo: sexo,
+      
+  },{
+      where :{
+          id: id
+      }
+  }
+  
+  ).then(() => {
+      User.findOne({
+        where:{
+          id:id
+        }
+      }).then(data =>{
+          res.send({data:data})
+      }).catch(err =>{
+        res.send({error: "error!"})
+      })
+  }).catch(() =>{
+      res.send({error: "error!"})
+  })
+  }
+},
 register(req,res){
     const {name,email,password,description,followers,following,photo,sexo} = req.body
     
